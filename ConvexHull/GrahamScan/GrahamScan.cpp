@@ -90,6 +90,7 @@ int main() {
   ps.push_back(make_pair(11, 11));
   ps.push_back(make_pair(4, 5));
   ps.push_back(make_pair(8, 5));
+  ps.push_back(make_pair(6, 9));
   Points convex_hull = graham_scan(ps);
   for(Point p : convex_hull) {
     printf("(%d, %d)\n", X(p), Y(p));
