@@ -7,3 +7,6 @@ This repository contains fully functional code on different languages, implement
 ### Graham Scan.
 
 Given a set of points (S) in a plane, find the convex hull of S, where the convex hull fulfills that for every two points in S, say P, Q then the line PQ is fully contained on the convex hull. Time complexity: O(n log n), where n = |S|.
+
+### License
+[![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://opensource.org/licenses/mit-license.php)
