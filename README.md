@@ -30,5 +30,7 @@ Given a set of segments, which each segment is determined by a pair of points, f
 
 Time complexity: O(n log n + k log n), where k is the number of intersections of the segments, can be up to n^2.
 
+Space complexity: O(n + k)
+
 ### License
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://opensource.org/licenses/mit-license.php)
