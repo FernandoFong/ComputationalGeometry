@@ -39,7 +39,12 @@ public abstract class Point implements Comparable<Point>{
 
     @Override
     public int compareTo(Point p) {
-        return -1
+        if(p == null)
+            throw new NullPointerException();
+        int subs = this.sweepX ? this.x - p.getX() : this.y - p.getY();
+        if(subs == 0)
+            return this.id - p.getId();
+        return subs;
     }
 
     public abstract void act(State line);
