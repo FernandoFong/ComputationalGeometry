@@ -1,8 +1,24 @@
 import java.util.Scanner;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class Main {
+
+    private class SegmentIntersection {
+
+        private Segment a;
+        private Segment b;
+
+        public SegmentIntersection(Segment a, Segment b){
+            this.a = a;
+            this.b = b;
+        }
+
+        public String toString() {
+            return this.a.toString() + " intersects with " + this.b.toString();
+        }
+    }
 
     /**
      * Given a set of segments, find all the intersections among them
@@ -12,7 +28,14 @@ public class Main {
      * intersection.
      * @return A collection with all the intersection points.
      */
-    public static LinkedList<?> sweepLine(Segment [] segments, boolean flag) {
+    public static List<?> sweepLine(Segment [] segments, boolean segmentsFlag,
+                                    boolean sweepDirection) {
+        List<?> l = segmentsFlag ? new LinkedList<Integer>() : new LinkedList<Integer>();
+        // PriorityQueue<Point> events =  new PriorityQueue<>();
+        // for(Segment s : segments) {
+        //     events.add(s.getBegin());
+        //     events.add(s.getEnd());
+        // }
         /*
          * Agregar ambos puntos de los segmentos al priority queue.
          * de esta manera, nos ahorramos un ordenamiento pero segments tiene
@@ -35,7 +58,7 @@ public class Main {
          *     de intersecciones
          *Regresamos la lista de intersecciones.
          */
-        return null;
+        return l;
     }
 
     /**
@@ -49,19 +72,19 @@ public class Main {
         boolean sweepDirection = in.nextLine().equals("x");
         System.out.println("Type the number of segments");
         int n = in.nextInt();
-        //Segment [] segments = new Segment[n];
+        Segment [] segments = new Segment[n];
         for(int i = 0; i < n; i++) {
             System.out.println("Type the beginning point of the segment");
             int x = in.nextInt(), y = in.nextInt();
             System.out.println(x);
             System.out.println(y);
-            //Begin b = new Begin(x, y, sweepDirection, i);
+            //Begin b = new Begin(x, y, i, sweepDirection);
             System.out.println("Type the end point of the segment");
             x = in.nextInt();
             y = in.nextInt();
             System.out.println(x);
             System.out.println(y);
-            //End e = new End(x, y, sweepDirection, i);
+            //End e = new End(x, y, i, sweepDirection);
             //segments[i] = new Segment(b, e);
         }
     }
