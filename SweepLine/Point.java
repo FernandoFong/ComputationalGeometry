@@ -1,51 +1,37 @@
-/**
- * This abstract class is for Sweep line algorithm implementation only, maybe
- * someone can adapt it to something else.
- * Each point knows who is the segment they belong to so they can find them
- * at the state line, and perform.
- */
-public abstract class Point implements Comparable<Point>{
+public abstract class Point implements Comparable<Point> {
 
     private int x;
     private int y;
-    private int id; //The segment they belong to.
-    private boolean sweepX;
+    private int id;
+    private boolean xaxis;
 
-    /**
-     * The only way you can construct a point, you can't modify the values once the
-     * point is instanciated.
-     * @param <code>int</code> x, the coordinate of the x-axis.
-     * @param <code>int</code> y, the coordinate of the y-axis.
-     * @param <code>int</code> id, the id of the segment they belong to.
-     */
-    public Point(int x, int y, int id, boolean sx) {
-        this.x = x;
-        this.y = y;
-        this.id = id;
-        this.sweepX = sx;
+    public Point(int x, int y, int id, boolean xaxis) {
+	this.x = x;
+	this.y = y;
+	this.id = id;
+	this.xaxis = xaxis;
     }
 
     public int getX() {
-        return this.x;
+	return this.x;
     }
 
     public int getY() {
-        return this.y;
+	return this.y;
     }
 
     public int getId() {
-        return this.id;
+	return this.id;
     }
 
     @Override
     public int compareTo(Point p) {
-        if(p == null)
-            throw new NullPointerException();
-        int subs = this.sweepX ? this.x - p.getX() : this.y - p.getY();
-        if(subs == 0)
-            return this.id - p.getId();
-        return subs;
+	int dif = (xaxis) ? this.x - p.getX() : p.getY() - this.y;
+	if(dif == 0)
+	    return this.id - p.getId();
+	return dif;
     }
-
-    public abstract void act(State line);
+    
+    public abstract Intersection act(State line);
+    
 }

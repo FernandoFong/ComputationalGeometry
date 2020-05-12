@@ -1,91 +1,62 @@
-import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class Main {
 
     private class SegmentIntersection {
 
-        private Segment a;
-        private Segment b;
+	private Segment s1;
+	private Segment s2;
 
-        public SegmentIntersection(Segment a, Segment b){
-            this.a = a;
-            this.b = b;
-        }
+	public SegmentIntersection(Segment s1, Segment s2){
+	    this.s1 = s1;
+	    this.s2 = s2;
+	}
 
-        public String toString() {
-            return this.a.toString() + " intersects with " + this.b.toString();
-        }
+	public String toString() {
+	    return this.s1.toString() + " intersects with "+this.s2.toString();
+	}
+	
     }
 
-    // /**
-    //  * Given a set of segments, find all the intersections among them
-    //  * in time O((n + k) log n) where k is the number of intersections, if the
-    //  * flag parameter is <code>true<code> then it will return the segments that
-    //  * intersect each other, in other case, it will return the points of
-    //  * intersection.
-    //  * @return A collection with all the intersection points.
-    //  */
-    // public static List<?> sweepLine(Segment [] segments, boolean pointFlag,
-    //                                 boolean sweepDirection) {
-    //     List<?> l = pointFlag ? new LinkedList<Intersection>() : new LinkedList<SegmentIntersection>();
-    //     // PriorityQueue<Point> events =  new PriorityQueue<>();
-    //     // for(Segment s : segments) {
-    //     //     events.add(s.getBegin());
-    //     //     events.add(s.getEnd());
-    //     // }
-    //     /*
-    //      * Agregar ambos puntos de los segmentos al priority queue.
-    //      * de esta manera, nos ahorramos un ordenamiento pero segments tiene
-    //      * que implementar a comparable.
-    //      * Crear el estado de la línea.
-    //      * Insertamos a la cola de prioridades los puntos de inicio y final
-    //      * de cada segmento.
-    //      * Mientras que la cola aún tenga un evento:
-    //      *     Si es un punto de inicio, entonces agregamos el segmento al
-    //      *     estado y preguntamos si se intersecta con sus vecinos, en
-    //      *     caso de ser cierto, obtenemos el punto y lo agregamos a los eventos.
-    //      *     Si es un punto de intersección, entonces hacemos un swap de los
-    //      *     segmentos que lo conforman en la línea de estado y preguntamos si
-    //      *     se intersectan con sus nuevos vecinos, en caso de ser cierto,
-    //      *     obtenemos el punto y lo agregamos a los eventos.
-    //      *     Si es un punto final, eliminamos al segmento la línea y preguntamos
-    //      *     si los que ahora son vecinos se intersectan, en caso de ser cierto,
-    //      *     obtenemos el punto de intersección y lo agregamos a los eventos.
-    //      *     Si obtuvimos un punto de intersección vamos a agregarlo a la lista
-    //      *     de intersecciones
-    //      *Regresamos la lista de intersecciones.
-    //      */
-    //     return l;
-    // }
-
-    /**
-     * Driver's code.
-     */
+    public static List<?> sweepLine(Segment [] segments, boolean segInt) {
+	/*
+	 * Inserto todos los eventos (los puntos de los segmentos) en el
+	 * priority queue.
+	 * Creo una línea de estado vacío.
+	 * Mientras el priority queue no sea vacío (aún hay un evento).
+	 * Saco el evento, que actúe sobre la línea de estado.
+	 * Va a regresar o un punto o null.
+	 * Si regresa != null, lo inserto en los eventos.
+	 * Si regresó distinto de null, entonces regresó un punto != null, 
+	 * necesariamente de intersección.
+	 * Si está activada segIntersections, tengo que ver quiénes son los
+	 * segmentos que conforman ese punto y crear un SegmentIntersection e
+	 * insertarlo en la lista de retorno.
+	 * En otro caso, regresaré una lista de intersections.
+	 */
+	List<?> l = (segInt) ? new LinkedList<Intersection>() : new LinkedList<SegmentIntersection>();
+	PriorityQueue<Point> events = new PriorityQueue<>();
+	for(Segment s : segments) {
+	    events.add(s.getBegin());
+	    events.add(s.getEnd());
+	}
+	while(!events.isEmpty()) {
+	    Point p = events.poll();
+	    System.out.printf("(%d, %d)\n", p.getX(), p.getY());
+	}
+	return l;
+    }
+    
     public static void main(String [] args) {
-        // Scanner in = new Scanner(System.in);
-        // System.out.println("In which direction do you want to sweep?\n" +
-        //                    "1) x\n"+
-        //                    "2) y\n");
-        // boolean sweepDirection = in.nextLine().equals("x");
-        // System.out.println("Type the number of segments");
-        // int n = in.nextInt();
-        // Segment [] segments = new Segment[n];
-        // for(int i = 0; i < n; i++) {
-        //     System.out.println("Type the beginning point of the segment");
-        //     int x = in.nextInt(), y = in.nextInt();
-        //     System.out.println(x);
-        //     System.out.println(y);
-        //     //Begin b = new Begin(x, y, i, sweepDirection);
-        //     System.out.println("Type the end point of the segment");
-        //     x = in.nextInt();
-        //     y = in.nextInt();
-        //     System.out.println(x);
-        //     System.out.println(y);
-        //     //End e = new End(x, y, i, sweepDirection);
-        //     //segments[i] = new Segment(b, e);
-        // }
+	Segment [] segments = new Segment[2];
+	Begin ba = new Begin(2, 9, 1, true), bb = new Begin(4, 4, 2, true);
+	End ea = new End(5, 1, 1, true), eb = new End(3, 3, 2, true);
+	segments[0] = new Segment(ba, ea, 1);
+	segments[1] = new Segment(bb, eb, 2);
+	List<?> l = sweepLine(segments, false);
     }
+    
 }
