@@ -32,6 +32,6 @@ public abstract class Point implements Comparable<Point> {
 	return dif;
     }
     
-    public abstract Intersection act(State line);
+    public abstract Intersection act(State line, Segment [] segments);
     
 }

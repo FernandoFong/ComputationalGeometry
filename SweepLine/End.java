@@ -1,3 +1,4 @@
+
 public class End extends Point {
 
     public End(int x, int y, int id, boolean xaxis) {
@@ -5,7 +6,7 @@ public class End extends Point {
     }
     
     @Override
-    public Intersection act(State line) {
+    public Intersection act(State line, Segment [] segments) {
 	return null;
     }
     

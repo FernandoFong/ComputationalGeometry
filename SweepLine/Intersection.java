@@ -8,7 +8,7 @@ public class Intersection extends Point {
     }
     
     @Override
-    public Intersection act(State line) {
+    public Intersection act(State line, Segment [] segments) {
 	return null;
     }
 }
