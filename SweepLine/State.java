@@ -54,6 +54,16 @@ public class State {
 	rebalance(sn.parent);
     }
 
+    private StateNode search(StateNode sn, Segment s) {
+	if(sn == null)
+	    return null;
+	if(s.compareTo(sn.s) == 0)
+	    return sn;
+	if(s.compareTo(sn.s) < 0)
+	    return search(sn.left, s);
+	return search(sn.right, s);
+    }
+
     private void rebalance(StateNode sn) {
 	return;
     }
@@ -62,23 +72,67 @@ public class State {
 	return;
     }
 
-    public void bfs() {
-	if(root == null)
-	    return;
-	Queue<StateNode> queue = new LinkedList<>();
-	queue.add(this.root);
-	do {
-	    StateNode sn = queue.poll();
-	    System.out.println(sn.s.toString());
-	    if(sn.left != null) {
-		queue.add(sn.left);
-		System.out.println("Left: " + sn.left.s.toString());
-	    }
-	    if(sn.right != null) {
-		queue.add(sn.right);
-		System.out.println("Right: " + sn.right.s.toString());
-	    }
-	} while(!queue.isEmpty());
+    public Segment leftSegment(Segment s) {
+	StateNode sn = search(this.root, s);
+	return (sn == null || sn.left == null) ? null : sn.left.s;
     }
-    
+
+    public Segment rightSegment(Segment s) {
+	StateNode sn = search(this.root, s);
+	return (sn == null || sn.right == null) ? null : sn.right.s;
+    }
+
+    public void giraDerecha(Segment s) {
+	
+    }
+
+    public void giraIzquierda(Segment s) {
+	
+    }
+
+    public String toString() {
+	if(this.root == null)
+	    return "";
+	int h = this.root.getHeight() + 1;
+	boolean [] branch = new boolean[h];
+	for(int i = 0; i < h; i++)
+	    branch[i] = false;
+	String s = toString(this.root, 0, branch);
+	return s.substring(0, s.length()-1);
+    }
+
+    private String toString(StateNode node, int lev, boolean[] branch) {
+	String s = node.s.toString() + "\n";
+	branch[lev] = true;
+	if(node.left != null && node.right != null) {
+	    s += spaces(lev, branch);
+	    s += "├─›";
+	    s += toString(node.left, lev+1, branch);
+	    s += spaces(lev, branch);
+	    s += "└─»";
+	    branch[lev] = false;
+	    s += toString(node.right, lev+1, branch);
+	} else if(node.left != null) {
+	    s += spaces(lev, branch);
+	    s += "└─›";
+	    branch[lev] = false;
+	    s += toString(node.left, lev+1, branch);
+	}else if(node.right != null) {
+	    s += spaces(lev, branch);
+	    s += "└─»";
+	    branch[lev] = false;
+	    s += toString(node.right, lev+1, branch);
+	}
+	return s;
+    }
+
+    private String spaces(int n, boolean [] branch) {
+	String s = "";
+	for(int i = 0; i < n; i++)
+	    if(branch[i])
+		s += "│  ";
+	    else
+		s += "   ";
+	return s;	   
+    }
 }

@@ -11,8 +11,15 @@ public class DriverState {
 	for(int i = 0; i < ss.length; i++) {
 	    ss[i] = new Segment(xb[i], yb[i], xe[i], ye[i], i+1, false);
 	}
+	Segment s6 = new Segment(1, 2, 3, 4, 6, false);
 	for(Segment seg : ss)
 	    s.addSegment(seg);
-	s.bfs();
+	System.out.println(s.toString());
+	System.out.println(s.leftSegment(ss[0]));
+	System.out.println(s.rightSegment(ss[0]));
+	System.out.println(s.leftSegment(ss[1]));
+	System.out.println(s.rightSegment(ss[1]));	
+	System.out.println(s.leftSegment(ss[2]));
+	System.out.println(s.rightSegment(ss[2]));
     }    
 }
