@@ -1,7 +1,0 @@
-public class StateLine {
-
-    protected class StateNode {
-
-    }
-    
-}
